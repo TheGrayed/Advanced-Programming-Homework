@@ -4,29 +4,12 @@
 #include "stdafx.h"
 #include <iostream>
 
-void printMillitaryTime(unsigned short hour, unsigned short minute, unsigned short seconds);
-
-void printSplittedTime(unsigned short hour, unsigned short minute, unsigned short seconds);
-
-int main()
-{
-	unsigned short hour, minute, seconds;
-	std::cin >> hour >> minute >> seconds;
-
-	printMillitaryTime(hour, minute, seconds);
-	printSplittedTime(hour, minute, seconds);
-
-	std::cin >> hour;
-
-	return 0;
-}
-
-void printMillitaryTime(unsigned short hour, unsigned short minute, unsigned short seconds)
+inline void printMillitaryTime(unsigned short hour, unsigned short minute, unsigned short seconds)
 {
 	std::cout << hour << ':' << minute << ':' << seconds << std::endl;
 }
 
-void printSplittedTime(unsigned short hour, unsigned short minute, unsigned short seconds)
+inline void printSplittedTime(unsigned short hour, unsigned short minute, unsigned short seconds)
 {
 	if (hour > 11)
 	{
@@ -36,4 +19,18 @@ void printSplittedTime(unsigned short hour, unsigned short minute, unsigned shor
 	{
 		std::cout << hour << ':' << minute << ':' << seconds << ' ' << "AM" << std::endl;
 	}
+}
+
+int main()
+{
+	unsigned short hour, minute, seconds;
+	std::cin >> hour >> minute >> seconds;
+
+	printMillitaryTime(hour, minute, seconds);
+	printSplittedTime(hour, minute, seconds);
+
+	std::cin.get();
+	std::cin.get();
+
+	return 0;
 }
