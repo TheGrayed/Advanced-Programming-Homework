@@ -24,9 +24,17 @@ inline void printSplittedTime(unsigned short hour, unsigned short minute, unsign
 int main()
 {
 	unsigned short hour, minute, seconds;
-	std::cin >> hour >> minute >> seconds;
+	std::cout <<  "Enter hour: ";
+	std::cin >> hour;
+	std::cout << "Enter minute: ";
+	std::cin >> minute;
+	std::cout<< "Enter seconds: ";
+	std::cin >> seconds;
 
+	std::cout << std::endl << "Millitary time: ";
 	printMillitaryTime(hour, minute, seconds);
+
+	std::cout << std::endl << "Splitted time: ";
 	printSplittedTime(hour, minute, seconds);
 
 	std::cin.get();
