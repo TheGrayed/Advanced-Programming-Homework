@@ -15,8 +15,7 @@
 class employee
 {
 	friend employee read_employee_from_console();
-	friend short compare_first_name(employee, employee);
-	friend short compare_last_name(employee, employee);
+	friend class employee_comparer;
 
 private:
 	std::string first_name_;
@@ -34,7 +33,6 @@ public:
 	void write_to_console();
 	void write_to_console(std::string separator, int column_space);
 	void write_data_at_intervals_to_console(std::string separator, int column_space);
-	static void sort(employee*, short(*comparer)(employee, employee), int size, bool ascending);
 };
 
 employee read_employee_from_console();

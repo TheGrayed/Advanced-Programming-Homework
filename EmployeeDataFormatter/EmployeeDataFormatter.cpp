@@ -20,7 +20,7 @@ int main()
 		employees[i] = read_employee_from_console();
 	}
 
-	employee::sort(employees, compare_first_name, EMPLOYEE_COUNT, true);
+	employee_comparer::sort(employees,employee_comparer::compare_first_name, EMPLOYEE_COUNT, true);
 	//employee::sort(employees, employee_comparer::compare_last_name, EMPLOYEE_COUNT, true);
 
 	std::cout << std::endl << "Writing employee data sorted by first name ascending:" << std::endl;

@@ -54,22 +54,6 @@ void employee::write_data_at_intervals_to_console(std::string separator, int dat
 	exit_time_.write_to_console_military(data_length);
 }
 
-void employee::sort(employee* employees, short(*comparer)(employee, employee), int length, bool ascending)
-{
-	const short criteria = ascending ? 1 : -1;
-
-	for (int i = 0; i < length - 1; ++i)
-	{
-		for (int j = 0; j < length - i - 1; ++j)
-		{
-			short comparison = (*comparer)(employees[j], employees[j + 1]);
-			if (comparison == criteria)
-				std::swap<employee>(employees[j], employees[j + 1]);
-		}
-
-	}
-}
-
 employee read_employee_from_console()
 {
 	std::string fname, sname, pid, nid;
