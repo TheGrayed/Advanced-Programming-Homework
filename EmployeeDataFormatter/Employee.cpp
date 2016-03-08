@@ -1,12 +1,15 @@
 #include "stdafx.h"
 #include "Employee.h"
+#include <string>
 #include <iostream>
+#include "utility.h"
+#include <iomanip>
 
 employee::employee()
 {
 }
 
-employee::employee(char* fname, char* sname, int pid, int nid)
+employee::employee(std::string fname, std::string sname, std::string pid, std::string nid)
 {
 	first_name_ = fname;
 	surname_ = sname;
@@ -26,26 +29,60 @@ void employee::set_exit_time(daytime t)
 
 void employee::write_to_console()
 {
-	std::cout << FIRST_NAME_STRING << ": " << first_name_ << SUR_NAME_STRING << ": " << surname_ << NATIONAL_ID_STRING << ": " << national_id_ << PERSONNEL_ID_STRING << ": " << personnel_id_ << EXIT_TIME_STRING << ": ";
-	entrance_time_.write_to_console_ampm();
-	std::cout << EXIT_TIME_STRING << ": ";
-	exit_time_.write_to_console_ampm();
+	write_to_console(": ", MAX_NAME_LENGTH);
+}
+
+void employee::write_to_console(std::string separator, int data_length)
+{
+	std::cout << FIRST_NAME_STRING << separator << first_name_ << SUR_NAME_STRING << separator << surname_ << NATIONAL_ID_STRING << separator << national_id_ << PERSONNEL_ID_STRING
+		<< separator << personnel_id_ << EXIT_TIME_STRING << separator;
+	entrance_time_.write_to_console_military(data_length);
+	std::cout << EXIT_TIME_STRING << separator;
+	exit_time_.write_to_console_military(data_length);
+}
+
+void employee::write_data_at_intervals_to_console(std::string separator, int data_length)
+{
+	std::cout << std::setfill(' ') << std::left << std::setw(data_length) << utility::shrink_string(first_name_, data_length)
+		<< separator << std::setfill(' ') << std::left << std::setw(data_length) << utility::shrink_string(surname_, data_length)
+		<< separator << std::setfill(' ') << std::left << std::setw(data_length) << utility::shrink_string(national_id_, data_length)
+		<< separator << std::setfill(' ') << std::left << std::setw(data_length) << utility::shrink_string(personnel_id_, data_length)
+		<< separator << std::setfill(' ') << std::left << std::setw(data_length);
+	entrance_time_.write_to_console_military(data_length);
+	std::setfill(' ');
+	std::cout << separator << std::setw(data_length) << std::left;
+	exit_time_.write_to_console_military(data_length);
+}
+
+void employee::sort(employee* employees, short(*comparer)(employee, employee), int length, bool ascending)
+{
+	const short criteria = ascending ? 1 : -1;
+
+	for (int i = 0; i < length - 1; ++i)
+	{
+		for (int j = 0; j < length - i - 1; ++j)
+		{
+			short comparison = (*comparer)(employees[j], employees[j + 1]);
+			if (comparison == criteria)
+				std::swap<employee>(employees[j], employees[j + 1]);
+		}
+
+	}
 }
 
 employee read_employee_from_console()
 {
-	char* fname = new char[MAX_NAME_LENGTH];
-	char* sname = new char[MAX_NAME_LENGTH];
-	int pid, nid;
+	std::string fname, sname, pid, nid;
+
 	daytime t1, t2;
 	std::cout << std::endl << "Enter " << FIRST_NAME_STRING << ": ";
-	std::cin >> fname;
+	std::getline(std::cin, fname);
 	std::cout << std::endl << "Enter " << SUR_NAME_STRING << ": ";
-	std::cin >> sname;
+	std::getline(std::cin, sname);
 	std::cout << std::endl << "Enter " << NATIONAL_ID_STRING << ": ";
-	std::cin >> nid;
+	std::getline(std::cin, nid);
 	std::cout << std::endl << "Enter " << PERSONNEL_ID_STRING << ": ";
-	std::cin >> pid;
+	std::getline(std::cin, pid);
 	std::cout << std::endl << "Enter " << ENTRANCE_TIME_STRING << ": ";
 	t1.read_from_console(false);
 	std::cout << std::endl << "Enter " << EXIT_TIME_STRING << ": ";

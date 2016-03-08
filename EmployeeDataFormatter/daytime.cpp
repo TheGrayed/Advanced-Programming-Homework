@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "daytime.h"
 #include <iostream>
+#include <string>
 
 daytime::daytime()
 {
@@ -26,6 +27,7 @@ void daytime::read_from_console(bool ignore_constricts)
 	read_component_from_console(HOUR_NAME, HOUR_COUNT, h, ignore_constricts);
 	read_component_from_console(MINUTE_NAME, MINUTE_COUNT, m, ignore_constricts);
 	read_component_from_console(SECOND_NAME, SECOND_COUNT, s, ignore_constricts);
+	std::cin.ignore();
 }
 
 void daytime::read_component_from_console(const char* name, unsigned short exclusive_max, unsigned short &component, bool ignore_constrict)
@@ -49,9 +51,16 @@ void daytime::force_validate()
 	s %= SECOND_COUNT;
 }
 
-void daytime::write_to_console_military()
+void daytime::write_to_console_military(int length)
 {
-	std::cout << h << ':' << m << ':' << s;
+	std::string str;
+	str.append(std::to_string(h));
+	str.append(":");
+	str.append(std::to_string(m));
+	str.append(":");
+	str.append(std::to_string(s));
+	auto len = length > str.length() ? str.length() : length;
+	std::cout << str.substr(0, len);
 }
 
 void daytime::write_to_console_ampm()

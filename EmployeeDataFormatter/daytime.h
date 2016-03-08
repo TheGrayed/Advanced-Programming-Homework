@@ -21,7 +21,7 @@ public:
 	inline unsigned short minute() { return m; }
 	inline unsigned short second() { return s; }
 	void read_from_console(bool ignore_constricts);
-	void write_to_console_military();
+	void write_to_console_military(int length);
 	void write_to_console_ampm();
 	bool valid();
 	void force_validate();
